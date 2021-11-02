@@ -16,4 +16,4 @@ TimeZones.build()
 # Ensure the we'll get precompilation during the next import
 # which will capture all the build files in deps into the
 # RelocatableFolders paths.
-touch(joinpath(@__DIR__, "..", "src", "TimeZones.jl"))
+touch(joinpath(@__DIR__, "active_version"))
