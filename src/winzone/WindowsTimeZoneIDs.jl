@@ -18,14 +18,16 @@ const WINDOWS_ZONE_URL = "https://raw.githubusercontent.com/unicode-org/cldr/$UN
 const WINDOWS_ZONE_FILE = joinpath("cldr-$UNICODE_CLDR_VERSION", "common", "supplemental", "windowsZones.xml")
 
 const WINDOWS_XML_DIR = @path joinpath(DEPS_DIR, "local")
-const WINDOWS_XML_FILE = @path joinpath(WINDOWS_XML_DIR, "windowsZones.xml")
+const WINDOWS_XML_FILE = let file = joinpath(WINDOWS_XML_DIR, "windowsZones.xml")
+    isfile(file) ? @path(file) : file
+end
 
 const WINDOWS_TRANSLATION = Dict{String, String}()
 
 function __init__()
-    isdir(WINDOWS_XML_DIR) || mkdir(WINDOWS_XML_DIR)
+    isdir(String(WINDOWS_XML_DIR)) || mkdir(WINDOWS_XML_DIR)
 
-    if isfile(WINDOWS_XML_FILE)
+    if isfile(String(WINDOWS_XML_FILE))
         copy!(WINDOWS_TRANSLATION, compile(WINDOWS_XML_FILE))
     end
 end
